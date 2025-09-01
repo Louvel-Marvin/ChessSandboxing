@@ -25,8 +25,27 @@ class ChessSandbox:
         
         self.setup_ui()
         self.update_display()
-        
+
     def setup_ui(self):
+        # Menu principal
+        menubar = tk.Menu(self.root)
+
+        file_menu = tk.Menu(menubar, tearoff=0)
+        file_menu.add_command(label="Nouvelle partie", command=self.new_game)
+        file_menu.add_command(label="Charger FEN", command=self.load_fen)
+        file_menu.add_command(label="Importer PGN", command=self.import_pgn)
+        file_menu.add_command(label="Exporter PGN", command=self.export_pgn)
+        file_menu.add_command(label="Sauvegarder position", command=self.save_position)
+        file_menu.add_separator()
+        file_menu.add_command(label="Quitter", command=self.close)
+        menubar.add_cascade(label="Fichier", menu=file_menu)
+
+        view_menu = tk.Menu(menubar, tearoff=0)
+        view_menu.add_command(label="Retourner l'échiquier", command=self.flip_board)
+        menubar.add_cascade(label="Affichage", menu=view_menu)
+
+        self.root.config(menu=menubar)
+
         # Frame principal
         main_frame = ttk.Frame(self.root, padding="10")
         main_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
